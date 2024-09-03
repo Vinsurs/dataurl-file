@@ -1,5 +1,5 @@
 import { test, expect } from "vitest"
-import { file2dataurl } from "../src/main"
+import { file2dataurl } from "../src"
 
 test("file can be converted to dataUrl successfully", () => {
     const file = new File(['hello world'], 'hello.txt', { type: "text/plain "})

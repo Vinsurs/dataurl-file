@@ -5,7 +5,7 @@ import typescript from "@rollup/plugin-typescript";
 export default defineConfig({
     build: {
         lib: {
-            entry: resolve(__dirname, 'src/main.ts'),
+            entry: resolve(__dirname, 'src/index.ts'),
             name: 'dataurlFile',
             // the proper extensions will be added
             fileName: 'dataurl-file',

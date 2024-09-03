@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest"
-import { dataurl2file } from "../src/main"
+import { dataurl2file } from "../src"
 
 describe("dataurl2file", () => {
     it("will be got a file when dataurl is matched", () => {

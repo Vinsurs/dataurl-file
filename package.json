@@ -2,16 +2,17 @@
   "name": "dataurl-file",
   "description": "Convert to and from dataurl",
   "private": false,
-  "version": "0.1.0",
+  "version": "0.1.1",
   "files": ["dist"],
   "type": "module",
   "main": "./dist/dataurl-file.umd.cjs",
   "module": "./dist/dataurl-file.js",
-  "types": "./dist/main.d.ts",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/dataurl-file.js",
-      "require": "./dist/dataurl-file.umd.cjs"
+      "require": "./dist/dataurl-file.umd.cjs",
+      "types": "./dist/index.d.ts"
     }
   },
   "scripts": {
