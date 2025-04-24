@@ -19,17 +19,23 @@ const triggerFilePresets = {
     },
   }
   export function triggerFile(
-    type: keyof typeof triggerFilePresets,
-    multiple?: boolean,
+    type: keyof typeof triggerFilePresets | null,
+    multipleOrOpts?: boolean | ShowOpenFilePickerOptions,
     fallback?: boolean
   ) {
     return new Promise<File[]>((resolve, reject) => {
+      const opts: ShowOpenFilePickerOptions = {}
+      if (type && triggerFilePresets[type]) {
+        opts.types = [triggerFilePresets[type]]
+      }
+      if (typeof multipleOrOpts === 'boolean') {
+        opts.multiple = multipleOrOpts
+      } else if (typeof multipleOrOpts === 'object') {
+        Object.assign(opts, multipleOrOpts)
+      }
       if (typeof window.showOpenFilePicker === 'function') {
         window
-          .showOpenFilePicker({
-            types: [triggerFilePresets[type]],
-            multiple,
-          })
+          .showOpenFilePicker(opts)
           .then(async (fileHandles) => {
             const files: File[] = []
             for (const fileHandle of fileHandles) {
@@ -43,8 +49,17 @@ const triggerFilePresets = {
         const el = document.createElement('input')
         el.type = 'file'
         el.hidden = true
-        el.accept = Object.keys(triggerFilePresets[type].accept).join(',')
-        el.multiple = multiple ?? false
+        if ((opts.types && opts.types.length > 0)) {
+          el.accept =  Array.from(opts.types.reduce((prev, next) => {
+            if (next.accept) {
+              Object.keys(next.accept).forEach(mime => {
+                prev.add(mime)
+              })
+            }
+            return prev
+          }, new Set<string>())).join(', ')
+        }
+        el.multiple = opts.multiple ?? false
         attach()
         if ('showPicker' in HTMLInputElement.prototype) {
             el.showPicker()
