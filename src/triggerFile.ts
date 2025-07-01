@@ -1,3 +1,4 @@
+/// <reference path="../global.d.ts" />
 const triggerFilePresets = {
     json: {
       accept: {
